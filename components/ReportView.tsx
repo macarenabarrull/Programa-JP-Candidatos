@@ -74,20 +74,13 @@ export const ReportView: React.FC<ReportViewProps> = ({ slides }) => {
               <div className="text-9xl font-black text-white tracking-tighter mb-10 leading-none">fyo<span className="text-indigo-400">.</span></div>
               <div className="h-2 w-48 bg-indigo-600 mb-24"></div>
               
-              <div className="space-y-2 mb-8">
-                  <h3 className="text-2xl font-black text-indigo-600 uppercase tracking-[0.6em]">Programa JP</h3>
-                  <div className="h-0.5 w-12 bg-slate-200" />
-              </div>
-              
-              <h1 className="text-8xl font-black text-slate-900 leading-[0.85] tracking-tighter mb-16 uppercase">
-                  Dossier de<br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-indigo-900">Candidatos</span>
+              <h1 className="text-8xl font-black text-slate-900 leading-[0.85] tracking-tighter mb-6 uppercase">
+                  PROGRAMA JP<br /><span className="text-indigo-600">25-26</span>
               </h1>
               
-              <div className="max-w-lg border-l-8 border-indigo-600 pl-10 py-4 bg-slate-50/50 rounded-r-3xl">
-                  <p className="text-2xl text-slate-600 font-bold leading-tight">
-                      Evaluación estratégica de perfiles.<br />
-                      <span className="text-slate-400">Mesa Comercial Vendedora 25-26.</span>
-                  </p>
+              <div className="flex items-center gap-4">
+                  <div className="h-px w-12 bg-slate-300" />
+                  <h3 className="text-4xl font-black text-slate-400 uppercase tracking-[0.4em]">CANDIDATOS</h3>
               </div>
           </div>
 
