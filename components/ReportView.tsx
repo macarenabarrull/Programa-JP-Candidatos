@@ -160,13 +160,13 @@ export const ReportView: React.FC<ReportViewProps> = ({ slides }) => {
       {candidateSlides.map((slide) => {
           const candidate = slide.content;
           return (
-            <div key={slide.id} className="w-[210mm] h-[297mm] mx-auto p-[2cm] relative flex flex-col bg-white shadow-2xl mb-12 print:shadow-none print:mb-0 print:break-after-page">
+            <div key={slide.id} className="w-[210mm] h-[297mm] mx-auto p-[1.5cm] relative flex flex-col bg-white shadow-2xl mb-12 print:shadow-none print:mb-0 print:break-after-page">
                 <Header sectionTitle={`PERFIL: ${candidate.name.toUpperCase()}`} />
                 
-                <div className="flex-1 space-y-8">
-                    <div className="grid grid-cols-12 gap-8">
-                        <div className="col-span-4">
-                            <div className="aspect-[3/4] rounded-2xl overflow-hidden border border-slate-100 shadow-lg mb-4">
+                <div className="flex-1 space-y-4">
+                    <div className="grid grid-cols-12 gap-6">
+                        <div className="col-span-3">
+                            <div className="aspect-[3/4] rounded-xl overflow-hidden border border-slate-100 shadow-sm mb-3">
                                 {candidate.image ? (
                                     <img 
                                         src={candidate.image} 
@@ -178,81 +178,83 @@ export const ReportView: React.FC<ReportViewProps> = ({ slides }) => {
                                     <CandidateAvatar name={candidate.name} />
                                 )}
                             </div>
-                            <div className="space-y-4">
-                                <div>
-                                    <span className="text-[7px] font-black text-slate-400 uppercase tracking-widest block mb-1">Edad</span>
-                                    <span className="text-sm font-bold text-slate-900">{candidate.age} años</span>
+                            <div className="space-y-2">
+                                <div className="p-2 bg-slate-50 rounded-lg border border-slate-100">
+                                    <span className="text-[6px] font-black text-slate-400 uppercase tracking-widest block mb-0.5">Edad</span>
+                                    <span className="text-xs font-bold text-slate-900">{candidate.age} años</span>
                                 </div>
                             </div>
                         </div>
                         
-                        <div className="col-span-8 space-y-6">
-                            <section className="p-4 bg-slate-50 rounded-2xl border border-slate-100">
-                                <h2 className="text-[9px] font-black text-indigo-500 uppercase tracking-[0.2em] mb-2 flex items-center gap-2">
-                                    <GraduationCap size={12} /> Formación Académica
+                        <div className="col-span-9 space-y-4">
+                            <section className="p-3 bg-slate-50 rounded-xl border border-slate-100">
+                                <h2 className="text-[8px] font-black text-indigo-500 uppercase tracking-[0.2em] mb-1.5 flex items-center gap-2">
+                                    <GraduationCap size={10} /> Formación Académica
                                 </h2>
-                                <p className="text-[10px] font-bold text-slate-700">{candidate.study}</p>
+                                <p className="text-[9px] font-bold text-slate-700 leading-tight">{candidate.study}</p>
                             </section>
 
-                            <section>
-                                <h2 className="text-[9px] font-black text-indigo-500 uppercase tracking-[0.2em] mb-3 flex items-center gap-2">
-                                    <Briefcase size={12} /> Experiencia Relevante
-                                </h2>
-                                <div className="space-y-2">
-                                    {candidate.experience.map((exp: string, i: number) => (
-                                        <div key={i} className="p-3 bg-slate-50 rounded-xl border border-slate-100 text-[10px] font-medium text-slate-600">
-                                            {exp}
-                                        </div>
-                                    ))}
+                            <div className="grid grid-cols-2 gap-4">
+                                <section>
+                                    <h2 className="text-[8px] font-black text-indigo-500 uppercase tracking-[0.2em] mb-2 flex items-center gap-2">
+                                        <Briefcase size={10} /> Experiencia
+                                    </h2>
+                                    <div className="space-y-1.5">
+                                        {candidate.experience.map((exp: string, i: number) => (
+                                            <div key={i} className="p-2 bg-slate-50 rounded-lg border border-slate-100 text-[8px] font-medium text-slate-600 leading-tight">
+                                                {exp}
+                                            </div>
+                                        ))}
+                                    </div>
+                                </section>
+
+                                <section>
+                                    <h2 className="text-[8px] font-black text-emerald-500 uppercase tracking-[0.2em] mb-2 flex items-center gap-2">
+                                        <GraduationCap size={10} /> Capacitaciones
+                                    </h2>
+                                    <ul className="space-y-1">
+                                        {candidate.courses.map((c: string, i: number) => (
+                                            <li key={i} className="flex items-start gap-1.5 text-[8px] font-bold text-slate-500 leading-tight">
+                                                <div className="w-1 h-1 rounded-full bg-emerald-400 mt-1 shrink-0" />
+                                                {c}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </section>
+                            </div>
+
+                            <div className="grid grid-cols-2 gap-3">
+                                <div className="p-3 bg-indigo-50 rounded-xl border border-indigo-100">
+                                    <span className="text-[6px] font-black text-indigo-500 uppercase tracking-widest block mb-1">Fortalezas</span>
+                                    <p className="text-[8px] font-bold text-indigo-900 leading-tight">{candidate.notable}</p>
                                 </div>
-                            </section>
-
-                            <section>
-                                <h2 className="text-[9px] font-black text-emerald-500 uppercase tracking-[0.2em] mb-3 flex items-center gap-2">
-                                    <GraduationCap size={12} /> Cursos y Capacitaciones
-                                </h2>
-                                <ul className="grid grid-cols-1 gap-1.5">
-                                    {candidate.courses.map((c: string, i: number) => (
-                                        <li key={i} className="flex items-center gap-2 text-[9px] font-bold text-slate-500">
-                                            <div className="w-1 h-1 rounded-full bg-emerald-400" />
-                                            {c}
-                                        </li>
-                                    ))}
-                                </ul>
-                            </section>
-
-                            <div className="grid grid-cols-2 gap-4 pt-4">
-                                <div className="p-4 bg-indigo-50 rounded-2xl border border-indigo-100">
-                                    <span className="text-[7px] font-black text-indigo-500 uppercase tracking-widest block mb-2">Aspecto Destacable</span>
-                                    <p className="text-[10px] font-bold text-indigo-900 leading-relaxed">{candidate.notable}</p>
-                                </div>
-                                <div className="p-4 bg-amber-50 rounded-2xl border border-amber-100">
-                                    <span className="text-[7px] font-black text-amber-500 uppercase tracking-widest block mb-2">Aspecto a Considerar</span>
-                                    <p className="text-[10px] font-bold text-amber-900 leading-relaxed">{candidate.toConsider}</p>
+                                <div className="p-3 bg-amber-50 rounded-xl border border-amber-100">
+                                    <span className="text-[6px] font-black text-amber-500 uppercase tracking-widest block mb-1">A considerar</span>
+                                    <p className="text-[8px] font-bold text-amber-900 leading-tight">{candidate.toConsider}</p>
                                 </div>
                             </div>
 
-                            {/* Evaluation Section for Leaders */}
-                            <div className="mt-6 border-t-2 border-dashed border-slate-200 pt-6">
-                                <div className="flex justify-between items-center mb-4">
-                                    <h3 className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Evaluación del Líder</h3>
-                                    <div className="flex gap-4">
-                                        <div className="flex items-center gap-2">
-                                            <div className="w-4 h-4 border border-slate-300 rounded" />
-                                            <span className="text-[8px] font-bold text-slate-500 uppercase">Avanza</span>
-                                        </div>
-                                        <div className="flex items-center gap-2">
-                                            <div className="w-4 h-4 border border-slate-300 rounded" />
-                                            <span className="text-[8px] font-bold text-slate-500 uppercase">Duda</span>
-                                        </div>
-                                        <div className="flex items-center gap-2">
-                                            <div className="w-4 h-4 border border-slate-300 rounded" />
-                                            <span className="text-[8px] font-bold text-slate-500 uppercase">No Avanza</span>
-                                        </div>
+                            {/* Evaluation Section for Leaders - Redesigned for Print */}
+                            <div className="mt-4 border-t border-slate-200 pt-4">
+                                <div className="flex justify-between items-center mb-3">
+                                    <h3 className="text-[8px] font-black text-slate-400 uppercase tracking-widest">Evaluación del Líder</h3>
+                                    <div className="flex gap-3">
+                                        {['Avanza', 'Duda', 'No Avanza'].map((label) => (
+                                            <div key={label} className="flex items-center gap-1.5">
+                                                <div className="w-3 h-3 border border-slate-300 rounded-sm" />
+                                                <span className="text-[7px] font-bold text-slate-500 uppercase">{label}</span>
+                                            </div>
+                                        ))}
                                     </div>
                                 </div>
-                                <div className="h-24 w-full border border-slate-200 rounded-xl bg-slate-50/30 p-3">
-                                    <span className="text-[7px] font-black text-slate-300 uppercase tracking-widest">Observaciones y Comentarios:</span>
+                                <div className="h-20 w-full border border-slate-200 rounded-lg bg-slate-50/20 p-2 relative">
+                                    <span className="text-[6px] font-black text-slate-300 uppercase tracking-widest absolute top-2 left-2">Observaciones:</span>
+                                    {/* Lines for handwriting */}
+                                    <div className="mt-4 space-y-3">
+                                        <div className="border-b border-slate-100 h-px w-full" />
+                                        <div className="border-b border-slate-100 h-px w-full" />
+                                        <div className="border-b border-slate-100 h-px w-full" />
+                                    </div>
                                 </div>
                             </div>
                         </div>
