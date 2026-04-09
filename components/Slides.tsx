@@ -125,7 +125,7 @@ export const CoverSlide: React.FC<SlideProps> = ({ data }) => {
             <div className="relative mb-6">
                 <motion.h1 
                     variants={itemVariants} 
-                    className="text-4xl md:text-6xl lg:text-7xl font-black tracking-tighter text-slate-900 leading-[0.85] font-display"
+                    className="text-4xl md:text-6xl lg:text-7xl font-black tracking-tighter text-slate-900 leading-[0.85] font-display uppercase"
                 >
                     {(data.title || '').split(' ')[0]}<br />
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-emerald-500">
