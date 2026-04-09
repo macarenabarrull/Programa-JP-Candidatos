@@ -718,8 +718,8 @@ export const CandidateSlide: React.FC<SlideProps> = ({ data }) => {
             variants={containerVariants}
         >
             {/* Left Column: Photo and Basic Info */}
-            <motion.div variants={itemVariants} className="lg:col-span-4 flex flex-col gap-4">
-                <GlassCard className="p-2 border-white/80 shadow-xl overflow-hidden group">
+            <motion.div variants={itemVariants} className="lg:col-span-3 flex flex-col gap-4">
+                <GlassCard className="p-1.5 border-white/80 shadow-xl overflow-hidden group">
                     <div className="relative aspect-[4/5] rounded-xl overflow-hidden">
                 {candidate.image ? (
                     <img 
@@ -732,34 +732,37 @@ export const CandidateSlide: React.FC<SlideProps> = ({ data }) => {
                     <CandidateAvatar name={candidate.name} />
                 )}
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-60" />
-                        <div className="absolute bottom-4 left-4 right-4">
-                            <h2 className="text-xl font-black text-white tracking-tight font-display leading-tight">{candidate.name}</h2>
-                            <p className="text-indigo-200 font-black text-xs uppercase tracking-widest">{candidate.age} años</p>
+                        <div className="absolute bottom-3 left-3 right-3 p-2 bg-white/10 backdrop-blur-md rounded-lg border border-white/20">
+                            <h2 className="text-sm font-black text-white tracking-tight font-display leading-tight">{candidate.name}</h2>
+                            <p className="text-indigo-200 font-black text-[10px] uppercase tracking-widest">{candidate.age} años</p>
                         </div>
                     </div>
-                </GlassCard>
-
-                <GlassCard className="p-4 border-slate-100/50">
-                    <div className="flex items-center gap-3 mb-2">
-                        <GlowIcon icon={GraduationCap} color="text-indigo-600" bg="bg-indigo-50" size={16} />
-                        <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Formación Académica</h3>
-                    </div>
-                    <p className="text-xs font-bold text-slate-700 leading-relaxed tracking-tight">
-                        {candidate.study}
-                    </p>
                 </GlassCard>
             </motion.div>
 
             {/* Right Column: Details */}
-            <motion.div variants={containerVariants} className="lg:col-span-8 flex flex-col gap-4">
+            <motion.div variants={containerVariants} className="lg:col-span-9 flex flex-col gap-4">
+                {/* Academic Background - Moved to Top Right */}
+                <GlassCard className="p-4 border-slate-100/50">
+                    <div className="flex items-center gap-3">
+                        <GlowIcon icon={GraduationCap} color="text-indigo-600" bg="bg-indigo-50" size={16} />
+                        <div>
+                            <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-0.5">Formación Académica</h3>
+                            <p className="text-sm font-bold text-slate-700 leading-relaxed tracking-tight">
+                                {candidate.study}
+                            </p>
+                        </div>
+                    </div>
+                </GlassCard>
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {/* Experience */}
-                    <GlassCard className="p-5 border-indigo-100/50 flex flex-col gap-3">
+                    <GlassCard className="p-5 border-indigo-100/50 flex flex-col gap-3 h-full">
                         <div className="flex items-center gap-3 mb-1">
                             <GlowIcon icon={Briefcase} color="text-indigo-600" bg="bg-indigo-50" size={16} />
                             <h3 className="text-[10px] font-black text-slate-900 uppercase tracking-widest">Experiencia Laboral</h3>
                         </div>
-                        <ul className="space-y-1.5">
+                        <ul className="space-y-2">
                             {candidate.experience.map((exp: string, i: number) => (
                                 <li key={i} className="flex items-start gap-2 text-[11px] font-bold text-slate-600 leading-snug">
                                     <div className="mt-1.5 h-1 w-1 rounded-full bg-indigo-400 shrink-0" />
@@ -770,12 +773,12 @@ export const CandidateSlide: React.FC<SlideProps> = ({ data }) => {
                     </GlassCard>
 
                     {/* Courses */}
-                    <GlassCard className="p-5 border-emerald-100/50 flex flex-col gap-3">
+                    <GlassCard className="p-5 border-emerald-100/50 flex flex-col gap-3 h-full">
                         <div className="flex items-center gap-3 mb-1">
                             <GlowIcon icon={GraduationCap} color="text-emerald-600" bg="bg-emerald-50" size={16} />
-                            <h3 className="text-[10px] font-black text-slate-900 uppercase tracking-widest">Cursos / Capacitaciones</h3>
+                            <h3 className="text-[10px] font-black text-slate-900 uppercase tracking-widest">Capacitaciones</h3>
                         </div>
-                        <ul className="space-y-1.5">
+                        <ul className="space-y-2">
                             {candidate.courses.map((course: string, i: number) => (
                                 <li key={i} className="flex items-start gap-2 text-[11px] font-bold text-slate-600 leading-snug">
                                     <div className="mt-1.5 h-1 w-1 rounded-full bg-emerald-400 shrink-0" />
@@ -787,12 +790,12 @@ export const CandidateSlide: React.FC<SlideProps> = ({ data }) => {
                 </div>
 
                 {/* Notable and To Consider */}
-                <div className="grid grid-cols-1 gap-4">
+                <div className="grid grid-cols-1 gap-3">
                     <motion.div variants={itemVariants}>
-                        <div className="p-4 rounded-2xl border-l-4 shadow-md bg-white border-indigo-500">
-                            <div className="flex items-center gap-3 mb-1.5">
+                        <div className="p-4 rounded-2xl border border-indigo-100 bg-white/60 backdrop-blur-sm shadow-sm">
+                            <div className="flex items-center gap-3 mb-2">
                                 <Sparkles size={16} className="text-indigo-500" />
-                                <h3 className="font-black text-[10px] text-indigo-900 uppercase tracking-widest">Fortalezas</h3>
+                                <h3 className="font-black text-[10px] text-indigo-900 uppercase tracking-widest">Fortalezas Destacadas</h3>
                             </div>
                             <p className="font-bold text-slate-700 text-xs leading-relaxed">
                                 {candidate.notable}
@@ -801,8 +804,8 @@ export const CandidateSlide: React.FC<SlideProps> = ({ data }) => {
                     </motion.div>
 
                     <motion.div variants={itemVariants}>
-                        <div className="p-4 rounded-2xl border-l-4 shadow-md bg-white border-amber-500">
-                            <div className="flex items-center gap-3 mb-1.5">
+                        <div className="p-4 rounded-2xl border border-amber-100 bg-white/60 backdrop-blur-sm shadow-sm">
+                            <div className="flex items-center gap-3 mb-2">
                                 <Search size={16} className="text-amber-500" />
                                 <h3 className="font-black text-[10px] text-amber-900 uppercase tracking-widest">Oportunidades de Mejora</h3>
                             </div>
@@ -817,7 +820,7 @@ export const CandidateSlide: React.FC<SlideProps> = ({ data }) => {
     );
 };
 
-// 11. Closing Slide - Executive Finish
+// 11. Closing Slide - Premium Finish
 export const ClosingSlide: React.FC<SlideProps> = ({ data, onPrint, onJumpToSlide }) => {
     const contacts = data.content.contacts || [];
     const { description } = data.content;
@@ -829,81 +832,72 @@ export const ClosingSlide: React.FC<SlideProps> = ({ data, onPrint, onJumpToSlid
             animate="show" 
             variants={containerVariants}
         >
-            <motion.div variants={itemVariants} className="mb-8">
-                <h1 className="text-3xl md:text-5xl lg:text-6xl font-black tracking-tight text-slate-900 mb-4 leading-tight font-display">
+            <motion.div variants={itemVariants} className="mb-12">
+                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-indigo-100 bg-white/60 text-indigo-700 text-[10px] font-black tracking-widest uppercase mb-8 shadow-sm">
+                    fyo | Talento y Cultura
+                </div>
+                <h1 className="text-4xl md:text-6xl lg:text-7xl font-black tracking-tight text-slate-900 mb-6 leading-tight font-display">
                     {data.title}
                 </h1>
-                <div className="flex items-center justify-center gap-3">
-                    <div className="h-px w-12 bg-indigo-200" />
-                    <p className="text-sm text-indigo-600 font-black tracking-widest uppercase">
+                <div className="flex items-center justify-center gap-4">
+                    <div className="h-px w-16 bg-gradient-to-r from-transparent to-indigo-200" />
+                    <p className="text-xs md:text-sm text-indigo-600 font-black tracking-[0.3em] uppercase">
                         {data.subtitle}
                     </p>
-                    <div className="h-px w-12 bg-indigo-200" />
+                    <div className="h-px w-16 bg-gradient-to-l from-transparent to-indigo-200" />
                 </div>
             </motion.div>
 
-            <div className="flex flex-col md:flex-row gap-6 w-full items-stretch mb-8">
-                {/* Motivational Quote Card */}
-                <motion.div variants={itemVariants} className="flex-1">
-                    <GlassCard className="p-6 text-center border-indigo-100/50 bg-white shadow-lg h-full flex flex-col justify-center">
-                        <p className="text-base md:text-lg font-bold text-slate-700 leading-snug italic mb-4">
-                            "{description}"
-                        </p>
-                        <div className="flex items-center justify-center gap-2 text-indigo-400">
-                            <span className="text-[10px] font-black uppercase tracking-widest">Conclusión</span>
-                        </div>
-                    </GlassCard>
-                </motion.div>
+            <motion.div variants={itemVariants} className="w-full max-w-2xl mb-12">
+                <GlassCard className="p-8 text-center border-indigo-100/50 bg-white/40 backdrop-blur-xl shadow-xl relative overflow-hidden">
+                    <div className="absolute top-0 left-0 w-full h-1 bg-indigo-600" />
+                    <p className="text-lg md:text-xl font-bold text-slate-700 leading-relaxed tracking-tight mb-6 italic">
+                        "{description}"
+                    </p>
+                    <div className="flex items-center justify-center gap-3">
+                        <div className="h-1 w-1 rounded-full bg-indigo-400" />
+                        <div className="h-1 w-1 rounded-full bg-indigo-400" />
+                        <div className="h-1 w-1 rounded-full bg-indigo-400" />
+                    </div>
+                </GlassCard>
+            </motion.div>
 
-                {/* Action Center Card */}
-                <motion.div variants={itemVariants} className="md:w-64">
-                    <GlassCard className="p-6 border-indigo-100 bg-indigo-50/30 shadow-lg h-full flex flex-col items-center justify-center">
-                        <div className="flex flex-col items-center w-full gap-3">
-                            <div className="text-center mb-2">
-                                <h4 className="text-slate-900 font-black text-xs tracking-tight mb-0.5">Reporte Ejecutivo</h4>
-                                <p className="text-slate-500 text-[8px] uppercase tracking-widest">PDF Optimizado</p>
-                            </div>
-                            
-                            <button 
-                                onClick={onPrint}
-                                className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-indigo-600 text-white rounded-xl font-black text-[10px] transition-all shadow-md hover:bg-indigo-700 active:scale-95 font-display tracking-widest uppercase"
-                            >
-                                <Download size={14} />
-                                <span>Descargar</span>
-                            </button>
-
-                            {onJumpToSlide && (
-                                <button 
-                                    onClick={() => onJumpToSlide(0)}
-                                    className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-white border border-indigo-100 text-indigo-600 rounded-xl font-black text-[9px] transition-all shadow-sm hover:bg-indigo-50 active:scale-95 font-display tracking-widest uppercase"
-                                >
-                                    <RotateCcw size={12} />
-                                    <span>Inicio</span>
-                                </button>
-                            )}
+            <div className="flex flex-wrap justify-center gap-8 mb-12">
+                {contacts.map((contact: any, idx: number) => (
+                    <motion.div 
+                        key={idx} 
+                        variants={itemVariants}
+                        className="flex items-center gap-4 p-3 rounded-2xl bg-white/40 border border-white/60 shadow-sm hover:bg-white/60 transition-all"
+                    >
+                        <div className="w-10 h-10 rounded-xl bg-indigo-50 flex items-center justify-center text-indigo-600 shadow-sm">
+                            <Mail size={18} />
                         </div>
-                    </GlassCard>
-                </motion.div>
+                        <div className="text-left">
+                            <span className="block text-[9px] font-black text-slate-400 uppercase tracking-widest mb-0.5">{contact.role}</span>
+                            <span className="block text-sm font-bold text-slate-700">{contact.email}</span>
+                        </div>
+                    </motion.div>
+                ))}
             </div>
 
-            {/* Contact Info Bar */}
-            <motion.div variants={itemVariants} className="w-full">
-                <div className="flex flex-wrap justify-center gap-8">
-                    {contacts.map((contact: any, idx: number) => (
-                        <div 
-                            key={idx} 
-                            className="flex items-center gap-3"
-                        >
-                            <div className="w-8 h-8 rounded-lg bg-white border border-slate-100 flex items-center justify-center text-slate-400 shadow-sm">
-                                <Mail size={14} />
-                            </div>
-                            <div className="text-left">
-                                <span className="block text-[8px] font-black text-slate-400 uppercase tracking-widest mb-0.5">{contact.role}</span>
-                                <span className="block text-xs font-bold text-slate-700">{contact.email}</span>
-                            </div>
-                        </div>
-                    ))}
-                </div>
+            <motion.div variants={itemVariants} className="flex gap-4">
+                <button 
+                    onClick={onPrint}
+                    className="flex items-center gap-3 px-8 py-4 bg-slate-900 text-white rounded-2xl font-black text-xs transition-all shadow-xl hover:bg-slate-800 active:scale-95 font-display tracking-widest uppercase"
+                >
+                    <Download size={18} />
+                    <span>Descargar Reporte</span>
+                </button>
+
+                {onJumpToSlide && (
+                    <button 
+                        onClick={() => onJumpToSlide(0)}
+                        className="flex items-center gap-3 px-8 py-4 bg-white border border-slate-200 text-slate-600 rounded-2xl font-black text-xs transition-all shadow-sm hover:bg-slate-50 active:scale-95 font-display tracking-widest uppercase"
+                    >
+                        <RotateCcw size={18} />
+                        <span>Volver al Inicio</span>
+                    </button>
+                )}
             </motion.div>
         </motion.div>
     );

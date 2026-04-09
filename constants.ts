@@ -24,11 +24,11 @@ export const SLIDES: SlideData[] = [
   {
     id: 'cover',
     type: 'cover',
-    title: 'JORNADA DE SELECCIÓN 2026',
-    subtitle: 'Mesa Comercial Vendedora | Informe de Candidatos',
+    title: 'Candidatos JP 25-26',
+    subtitle: 'Informe de candidatos para Assessment Center',
     content: {
       highlight: 'Estrategia de Crecimiento fyo',
-      tags: ['Talento fyo', 'Mentalidad Comercial', 'Innovación Agro']
+      tags: ['Talento joven', 'Proceso de selección', 'Mesa comercial']
     }
   },
   {
@@ -243,10 +243,13 @@ export const SLIDES: SlideData[] = [
     id: 'closing',
     type: 'closing',
     title: 'MUCHAS GRACIAS',
-    subtitle: 'Jornada de Selección 2026',
+    subtitle: 'Programa JP 25-26 | Candidatos granos',
     content: {
-      message: 'Estamos a disposición para profundizar en cualquier perfil.',
-      contact: 'Equipo de Talento fyo'
+      description: 'En fyo, transformamos el potencial en liderazgo. Estamos a disposición para profundizar en cualquier perfil.',
+      contacts: [
+        { role: 'Responsable de Talento', email: 'mbarrull@fyo.com' },
+        { role: 'Equipo de Selección', email: 'talentos@fyo.com' }
+      ]
     }
   }
 ];

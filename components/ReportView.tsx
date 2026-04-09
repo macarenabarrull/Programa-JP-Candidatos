@@ -64,12 +64,12 @@ export const ReportView: React.FC<ReportViewProps> = ({ slides }) => {
               
               <h3 className="text-base font-black text-indigo-500 uppercase tracking-[0.4em] mb-4">Talento y Cultura</h3>
               <h1 className="text-5xl font-black text-slate-900 leading-[1] tracking-tighter mb-10 uppercase">
-                  Dossier de<br />Candidatos<br /><span className="text-indigo-500">JP 2026</span>
+                  Candidatos<br /><span className="text-indigo-500">JP 25-26</span>
               </h1>
               
               <div className="max-w-sm border-l-2 border-indigo-100 pl-6 py-1">
                   <p className="text-base text-slate-500 font-medium leading-relaxed">
-                      Análisis detallado de perfiles para la Mesa Comercial Vendedora. Assessment Center 2026.
+                      Informe de candidatos para Assessment Center. Mesa Comercial Vendedora.
                   </p>
               </div>
           </div>
@@ -183,14 +183,17 @@ export const ReportView: React.FC<ReportViewProps> = ({ slides }) => {
                                     <span className="text-[7px] font-black text-slate-400 uppercase tracking-widest block mb-1">Edad</span>
                                     <span className="text-sm font-bold text-slate-900">{candidate.age} años</span>
                                 </div>
-                                <div>
-                                    <span className="text-[7px] font-black text-slate-400 uppercase tracking-widest block mb-1">Formación</span>
-                                    <span className="text-[10px] font-bold text-slate-700 leading-tight block">{candidate.study}</span>
-                                </div>
                             </div>
                         </div>
                         
                         <div className="col-span-8 space-y-6">
+                            <section className="p-4 bg-slate-50 rounded-2xl border border-slate-100">
+                                <h2 className="text-[9px] font-black text-indigo-500 uppercase tracking-[0.2em] mb-2 flex items-center gap-2">
+                                    <GraduationCap size={12} /> Formación Académica
+                                </h2>
+                                <p className="text-[10px] font-bold text-slate-700">{candidate.study}</p>
+                            </section>
+
                             <section>
                                 <h2 className="text-[9px] font-black text-indigo-500 uppercase tracking-[0.2em] mb-3 flex items-center gap-2">
                                     <Briefcase size={12} /> Experiencia Relevante
@@ -247,15 +250,9 @@ export const ReportView: React.FC<ReportViewProps> = ({ slides }) => {
               <p className="text-sm text-indigo-500 font-black uppercase tracking-[0.4em] mb-12">{closing.subtitle}</p>
               
               <div className="bg-slate-50 p-8 rounded-[2rem] border border-slate-100 w-full mb-10">
-                  <h3 className="text-[9px] font-black text-slate-400 uppercase tracking-[0.3em] mb-6">Criterios de Evaluación</h3>
-                  <div className="grid grid-cols-1 gap-4 text-left">
-                      {closing.content.bullets.map((b: string, i: number) => (
-                          <div key={i} className="flex items-center gap-3 text-[10px] font-bold text-slate-700">
-                              <div className="w-1.5 h-1.5 bg-indigo-500 rounded-full shrink-0"></div>
-                              {b}
-                          </div>
-                      ))}
-                  </div>
+                  <p className="text-base font-bold text-slate-700 leading-relaxed italic">
+                      "{closing.content.description}"
+                  </p>
               </div>
           </div>
 
