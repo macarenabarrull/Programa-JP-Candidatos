@@ -110,49 +110,49 @@ export const CoverSlide: React.FC<SlideProps> = ({ data }) => {
         <div className="absolute -top-20 -left-20 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl animate-pulse" />
         <div className="absolute -bottom-20 -right-20 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl animate-pulse delay-700" />
         
-        <GlassCard className="p-6 md:p-10 flex flex-col items-center border-white/80 shadow-2xl relative overflow-visible">
+        <GlassCard className="p-4 md:p-8 flex flex-col items-center border-white/80 shadow-2xl relative overflow-visible">
             {/* Top Accent Bar */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-1.5 bg-gradient-to-r from-indigo-600 to-emerald-500 rounded-b-full shadow-lg shadow-indigo-200" />
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-indigo-600 to-emerald-500 rounded-b-full shadow-lg shadow-indigo-200" />
             
             <motion.div 
                 variants={itemVariants} 
-                className="inline-flex items-center gap-3 px-6 py-2 rounded-2xl border border-indigo-100 bg-indigo-50/50 text-indigo-700 text-[11px] font-black tracking-[0.3em] uppercase mb-6 shadow-sm backdrop-blur-md"
+                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-xl border border-indigo-100 bg-indigo-50/50 text-indigo-700 text-[10px] font-black tracking-[0.3em] uppercase mb-4 shadow-sm backdrop-blur-md"
             >
-                <Sparkles size={14} className="animate-pulse" />
+                <Sparkles size={12} className="animate-pulse" />
                 FYO | PROGRAMA JP
             </motion.div>
             
-            <div className="relative mb-6">
+            <div className="relative mb-4">
                 <motion.h1 
                     variants={itemVariants} 
-                    className="text-4xl md:text-6xl lg:text-7xl font-black tracking-tighter text-slate-900 leading-[0.85] font-display uppercase"
+                    className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter text-slate-900 leading-[0.85] font-display uppercase"
                 >
                     {(data.title || '').split(' ')[0]}<br />
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-emerald-500">
                         {(data.title || '').split(' ').slice(1).join(' ')}
                     </span>
                 </motion.h1>
-                <div className="absolute -right-8 -top-8 opacity-10 rotate-12 hidden lg:block">
-                    <Rocket size={100} className="text-indigo-600" />
+                <div className="absolute -right-6 -top-6 opacity-10 rotate-12 hidden lg:block">
+                    <Rocket size={80} className="text-indigo-600" />
                 </div>
             </div>
             
-            <motion.div variants={itemVariants} className="h-px w-24 bg-slate-200 mb-6" />
+            <motion.div variants={itemVariants} className="h-px w-16 bg-slate-200 mb-4" />
             
-            <motion.p variants={itemVariants} className="text-base md:text-lg lg:text-xl text-slate-500 font-bold max-w-2xl leading-tight tracking-tight mb-10">
+            <motion.p variants={itemVariants} className="text-sm md:text-base lg:text-lg text-slate-500 font-bold max-w-2xl leading-tight tracking-tight mb-8">
                 {data.subtitle}
             </motion.p>
             
-            <motion.div variants={containerVariants} className="flex flex-wrap justify-center gap-3 w-full">
+            <motion.div variants={containerVariants} className="flex flex-wrap justify-center gap-2 w-full">
                 {data.content.tags.map((tag: string, idx: number) => (
                 <motion.div 
                     variants={itemVariants} 
                     key={idx} 
-                    whileHover={{ y: -5, scale: 1.05 }}
-                    className="flex items-center gap-2.5 px-5 py-2.5 bg-white border border-slate-100 rounded-2xl shadow-md hover:shadow-xl transition-all cursor-default group"
+                    whileHover={{ y: -3, scale: 1.05 }}
+                    className="flex items-center gap-2 px-4 py-2 bg-white border border-slate-100 rounded-xl shadow-md hover:shadow-xl transition-all cursor-default group"
                 >
-                    <div className="h-2 w-2 rounded-full bg-indigo-500 group-hover:scale-150 transition-transform" />
-                    <span className="text-slate-700 font-black text-xs tracking-tight uppercase">{tag}</span>
+                    <div className="h-1.5 w-1.5 rounded-full bg-indigo-500 group-hover:scale-150 transition-transform" />
+                    <span className="text-slate-700 font-black text-[10px] tracking-tight uppercase">{tag}</span>
                 </motion.div>
                 ))}
             </motion.div>
@@ -859,29 +859,29 @@ export const ClosingSlide: React.FC<SlideProps> = ({ data, onPrint, onJumpToSlid
             animate="show" 
             variants={containerVariants}
         >
-            <motion.div variants={itemVariants} className="mb-6">
-                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-indigo-100 bg-white/60 text-indigo-700 text-[10px] font-black tracking-widest uppercase mb-6 shadow-sm">
+            <motion.div variants={itemVariants} className="mb-4">
+                <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full border border-indigo-100 bg-white/60 text-indigo-700 text-[9px] font-black tracking-widest uppercase mb-4 shadow-sm">
                     FYO | PROGRAMA JP
                 </div>
-                <h1 className="text-3xl md:text-5xl lg:text-6xl font-black tracking-tight text-slate-900 mb-4 leading-tight font-display">
+                <h1 className="text-3xl md:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 mb-2 leading-tight font-display">
                     {data.title}
                 </h1>
-                <div className="flex items-center justify-center gap-4">
-                    <div className="h-px w-16 bg-gradient-to-r from-transparent to-indigo-200" />
-                    <p className="text-[10px] md:text-xs text-indigo-600 font-black tracking-[0.3em] uppercase">
+                <div className="flex items-center justify-center gap-3">
+                    <div className="h-px w-12 bg-gradient-to-r from-transparent to-indigo-200" />
+                    <p className="text-[9px] md:text-[10px] text-indigo-600 font-black tracking-[0.3em] uppercase">
                         {data.subtitle}
                     </p>
-                    <div className="h-px w-16 bg-gradient-to-l from-transparent to-indigo-200" />
+                    <div className="h-px w-12 bg-gradient-to-l from-transparent to-indigo-200" />
                 </div>
             </motion.div>
 
-            <motion.div variants={itemVariants} className="w-full max-w-2xl mb-8">
-                <GlassCard className="p-6 text-center border-indigo-100/50 bg-white/40 backdrop-blur-xl shadow-xl relative overflow-hidden">
+            <motion.div variants={itemVariants} className="w-full max-w-xl mb-6">
+                <GlassCard className="p-4 text-center border-indigo-100/50 bg-white/40 backdrop-blur-xl shadow-xl relative overflow-hidden">
                     <div className="absolute top-0 left-0 w-full h-1 bg-indigo-600" />
-                    <p className="text-base md:text-lg font-bold text-slate-700 leading-relaxed tracking-tight mb-4 italic">
+                    <p className="text-sm md:text-base font-bold text-slate-700 leading-relaxed tracking-tight mb-3 italic">
                         "{description}"
                     </p>
-                    <div className="flex items-center justify-center gap-2">
+                    <div className="flex items-center justify-center gap-1.5">
                         <div className="h-1 w-1 rounded-full bg-indigo-400" />
                         <div className="h-1 w-1 rounded-full bg-indigo-400" />
                         <div className="h-1 w-1 rounded-full bg-indigo-400" />
@@ -889,39 +889,39 @@ export const ClosingSlide: React.FC<SlideProps> = ({ data, onPrint, onJumpToSlid
                 </GlassCard>
             </motion.div>
 
-            <div className="flex flex-wrap justify-center gap-6 mb-8">
+            <div className="flex flex-wrap justify-center gap-4 mb-6">
                 {contacts.map((contact: any, idx: number) => (
                     <motion.div 
                         key={idx} 
                         variants={itemVariants}
-                        className="flex items-center gap-3 p-2.5 rounded-2xl bg-white/40 border border-white/60 shadow-sm hover:bg-white/60 transition-all"
+                        className="flex items-center gap-2.5 p-2 rounded-2xl bg-white/40 border border-white/60 shadow-sm hover:bg-white/60 transition-all"
                     >
-                        <div className="w-8 h-8 rounded-xl bg-indigo-50 flex items-center justify-center text-indigo-600 shadow-sm">
-                            <Mail size={16} />
+                        <div className="w-7 h-7 rounded-xl bg-indigo-50 flex items-center justify-center text-indigo-600 shadow-sm">
+                            <Mail size={14} />
                         </div>
                         <div className="text-left">
-                            <span className="block text-[8px] font-black text-slate-400 uppercase tracking-widest mb-0.5">{contact.role}</span>
-                            <span className="block text-xs font-bold text-slate-700">{contact.email}</span>
+                            <span className="block text-[7px] font-black text-slate-400 uppercase tracking-widest mb-0.5">{contact.role}</span>
+                            <span className="block text-[11px] font-bold text-slate-700">{contact.email}</span>
                         </div>
                     </motion.div>
                 ))}
             </div>
 
-            <motion.div variants={itemVariants} className="flex gap-4">
+            <motion.div variants={itemVariants} className="flex gap-3">
                 <button 
                     onClick={onPrint}
-                    className="flex items-center gap-3 px-6 py-3 bg-slate-900 text-white rounded-2xl font-black text-[10px] transition-all shadow-xl hover:bg-slate-800 active:scale-95 font-display tracking-widest uppercase"
+                    className="flex items-center gap-2 px-5 py-2.5 bg-slate-900 text-white rounded-xl font-black text-[9px] transition-all shadow-xl hover:bg-slate-800 active:scale-95 font-display tracking-widest uppercase"
                 >
-                    <Download size={16} />
+                    <Download size={14} />
                     <span>Descargar Reporte</span>
                 </button>
 
                 {onJumpToSlide && (
                     <button 
                         onClick={() => onJumpToSlide(0)}
-                        className="flex items-center gap-3 px-6 py-3 bg-white border border-slate-200 text-slate-600 rounded-2xl font-black text-[10px] transition-all shadow-sm hover:bg-slate-50 active:scale-95 font-display tracking-widest uppercase"
+                        className="flex items-center gap-2 px-5 py-2.5 bg-white border border-slate-200 text-slate-600 rounded-xl font-black text-[9px] transition-all shadow-sm hover:bg-slate-50 active:scale-95 font-display tracking-widest uppercase"
                     >
-                        <RotateCcw size={16} />
+                        <RotateCcw size={14} />
                         <span>Volver al Inicio</span>
                     </button>
                 )}

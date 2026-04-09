@@ -46,14 +46,14 @@ export const ReportView: React.FC<ReportViewProps> = ({ slides }) => {
     </footer>
   );
 
-  const totalPages = 10;
-  let currentPage = 1;
-
-  // Group candidates in pairs for the 10-page layout
+  // Group candidates in pairs for the layout
   const candidatePairs = [];
   for (let i = 0; i < candidateSlides.length; i += 2) {
     candidatePairs.push(candidateSlides.slice(i, i + 2));
   }
+
+  const totalPages = 1 + 1 + candidatePairs.length + 1 + 1;
+  let currentPage = 1;
 
   return (
     <div className="w-full bg-slate-100 text-slate-900 font-sans text-[9px] leading-tight print:p-0 print:bg-white">

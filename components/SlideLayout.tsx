@@ -234,7 +234,7 @@ export const SlideLayout: React.FC<SlideLayoutProps> = ({
       </header>
 
       {/* Content Area - Optimized Spacing */}
-      <main className="flex-1 w-full max-w-[1440px] mx-auto px-6 md:px-16 pt-4 md:pt-8 pb-4 md:pb-8 relative z-10 flex flex-col justify-center print:block print:max-w-none print:px-0 min-h-0">
+      <main className="flex-1 w-full max-w-[1440px] mx-auto px-6 md:px-16 pt-2 md:pt-4 pb-2 md:pb-4 relative z-10 flex flex-col justify-center print:block print:max-w-none print:px-0 min-h-0">
         <AnimatePresence mode="wait" custom={direction}>
             <motion.div
                 key={currentSlide}
