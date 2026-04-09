@@ -245,10 +245,10 @@ export const SLIDES: SlideData[] = [
     title: 'MUCHAS GRACIAS',
     subtitle: 'Programa JP 25-26 | Candidatos granos',
     content: {
-      description: 'En fyo, transformamos el potencial en liderazgo. Estamos a disposición para profundizar en cualquier perfil.',
+      description: 'En fyo, creemos en el poder de las personas para transformar el agro. La cultura de fyo se basa en la confianza, la colaboracion y la innovación.',
       contacts: [
-        { role: 'Responsable de Talento', email: 'mbarrull@fyo.com' },
-        { role: 'Equipo de Selección', email: 'talentos@fyo.com' }
+        { role: 'TBP', email: 'mbarrull@fyo.com' },
+        { role: 'Talento', email: 'talentos@fyo.com' }
       ]
     }
   }

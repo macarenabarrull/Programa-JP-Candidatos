@@ -40,7 +40,7 @@ export const ReportView: React.FC<ReportViewProps> = ({ slides }) => {
         <div className="flex items-center gap-3">
             <span className="font-black uppercase tracking-[0.15em] text-slate-800">Dossier de Candidatos</span>
             <span className="w-0.5 h-0.5 rounded-full bg-slate-200" />
-            <span className="font-medium">Confidencial - Talento y Cultura fyo</span>
+            <span className="font-medium">Confidencial - Programa JP fyo</span>
         </div>
         <div className="font-bold text-slate-500">
             PÁGINA {page} DE {total}
@@ -62,7 +62,7 @@ export const ReportView: React.FC<ReportViewProps> = ({ slides }) => {
               <div className="text-6xl font-black text-slate-100 tracking-tighter mb-4 leading-none">fyo<span className="text-indigo-500">.</span></div>
               <div className="h-1 w-16 bg-indigo-500 mb-12"></div>
               
-              <h3 className="text-base font-black text-indigo-500 uppercase tracking-[0.4em] mb-4">Talento y Cultura</h3>
+              <h3 className="text-base font-black text-indigo-500 uppercase tracking-[0.4em] mb-4">Programa JP</h3>
               <h1 className="text-5xl font-black text-slate-900 leading-[1] tracking-tighter mb-10 uppercase">
                   Candidatos<br /><span className="text-indigo-500">JP 25-26</span>
               </h1>
@@ -221,7 +221,7 @@ export const ReportView: React.FC<ReportViewProps> = ({ slides }) => {
                                 </ul>
                             </section>
 
-                            <div className="grid grid-cols-1 gap-4 pt-4">
+                            <div className="grid grid-cols-2 gap-4 pt-4">
                                 <div className="p-4 bg-indigo-50 rounded-2xl border border-indigo-100">
                                     <span className="text-[7px] font-black text-indigo-500 uppercase tracking-widest block mb-2">Aspecto Destacable</span>
                                     <p className="text-[10px] font-bold text-indigo-900 leading-relaxed">{candidate.notable}</p>
@@ -229,6 +229,30 @@ export const ReportView: React.FC<ReportViewProps> = ({ slides }) => {
                                 <div className="p-4 bg-amber-50 rounded-2xl border border-amber-100">
                                     <span className="text-[7px] font-black text-amber-500 uppercase tracking-widest block mb-2">Aspecto a Considerar</span>
                                     <p className="text-[10px] font-bold text-amber-900 leading-relaxed">{candidate.toConsider}</p>
+                                </div>
+                            </div>
+
+                            {/* Evaluation Section for Leaders */}
+                            <div className="mt-6 border-t-2 border-dashed border-slate-200 pt-6">
+                                <div className="flex justify-between items-center mb-4">
+                                    <h3 className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Evaluación del Líder</h3>
+                                    <div className="flex gap-4">
+                                        <div className="flex items-center gap-2">
+                                            <div className="w-4 h-4 border border-slate-300 rounded" />
+                                            <span className="text-[8px] font-bold text-slate-500 uppercase">Avanza</span>
+                                        </div>
+                                        <div className="flex items-center gap-2">
+                                            <div className="w-4 h-4 border border-slate-300 rounded" />
+                                            <span className="text-[8px] font-bold text-slate-500 uppercase">Duda</span>
+                                        </div>
+                                        <div className="flex items-center gap-2">
+                                            <div className="w-4 h-4 border border-slate-300 rounded" />
+                                            <span className="text-[8px] font-bold text-slate-500 uppercase">No Avanza</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="h-24 w-full border border-slate-200 rounded-xl bg-slate-50/30 p-3">
+                                    <span className="text-[7px] font-black text-slate-300 uppercase tracking-widest">Observaciones y Comentarios:</span>
                                 </div>
                             </div>
                         </div>
@@ -257,7 +281,7 @@ export const ReportView: React.FC<ReportViewProps> = ({ slides }) => {
           </div>
 
           <div className="mt-12 border-t border-slate-100 pt-8">
-              <h3 className="text-[8px] font-black text-slate-400 uppercase tracking-[0.2em] mb-6 text-center">Contacto Talento y Cultura</h3>
+              <h3 className="text-[8px] font-black text-slate-400 uppercase tracking-[0.2em] mb-6 text-center">Contacto Programa JP</h3>
               <div className="flex justify-center gap-16">
                   {closing.content.contacts.map((c: any, i: number) => (
                       <div key={i} className="flex items-center gap-3">

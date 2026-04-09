@@ -81,8 +81,9 @@ export const SlideLayout: React.FC<SlideLayoutProps> = ({
   useEffect(() => {
     const requestWakeLock = async () => {
       try {
-        if ('wakeLock' in navigator) {
+        if ('wakeLock' in navigator && (navigator as any).wakeLock) {
           wakeLock.current = await (navigator as any).wakeLock.request('screen');
+          console.log('Wake Lock is active');
         }
       } catch (err: any) {
         // Silently handle permission errors as they are expected in some environments (like iframes)
@@ -96,17 +97,27 @@ export const SlideLayout: React.FC<SlideLayoutProps> = ({
       if (wakeLock.current !== null) {
         wakeLock.current.release();
         wakeLock.current = null;
+        console.log('Wake Lock released');
       }
     };
 
-    if (isFullscreen) {
-      requestWakeLock();
-    } else {
-      releaseWakeLock();
-    }
+    // Request wake lock whenever the component is mounted or becomes visible
+    requestWakeLock();
 
-    return () => releaseWakeLock();
-  }, [isFullscreen]);
+    // Re-request wake lock when visibility changes (e.g., tab switch)
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible') {
+        requestWakeLock();
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    return () => {
+      releaseWakeLock();
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, []);
 
   useEffect(() => {
     const handleFullscreenChange = () => {
@@ -223,7 +234,7 @@ export const SlideLayout: React.FC<SlideLayoutProps> = ({
       </header>
 
       {/* Content Area - Optimized Spacing */}
-      <main className="flex-1 w-full max-w-[1440px] mx-auto px-6 md:px-16 pt-16 md:pt-20 relative z-10 flex flex-col justify-center print:block print:max-w-none print:px-0 min-h-0">
+      <main className="flex-1 w-full max-w-[1440px] mx-auto px-6 md:px-16 pt-4 md:pt-8 pb-4 md:pb-8 relative z-10 flex flex-col justify-center print:block print:max-w-none print:px-0 min-h-0">
         <AnimatePresence mode="wait" custom={direction}>
             <motion.div
                 key={currentSlide}
@@ -258,7 +269,7 @@ export const SlideLayout: React.FC<SlideLayoutProps> = ({
                         )}
                     </motion.div>
                 )}
-                <div className="w-full h-full flex flex-col justify-center print:block overflow-y-auto md:overflow-visible py-2 custom-scrollbar">
+                <div className="w-full h-full flex flex-col justify-center print:block overflow-y-auto py-2 custom-scrollbar">
                     {children}
                 </div>
             </motion.div>
@@ -335,7 +346,7 @@ export const SlideLayout: React.FC<SlideLayoutProps> = ({
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className={`text-sm font-black truncate leading-tight ${isCurrent ? 'text-white' : 'text-slate-800'}`}>
-                          {slide.title || (slide.type === 'cover' ? 'Portada' : slide.type)}
+                          {slide.type === 'candidate' ? slide.content.name : (slide.title || (slide.type === 'cover' ? 'Portada' : slide.type))}
                         </div>
                         <div className={`text-[10px] font-bold truncate opacity-70 ${isCurrent ? 'text-indigo-100' : 'text-slate-500'}`}>
                           {slide.subtitle || slide.type}
