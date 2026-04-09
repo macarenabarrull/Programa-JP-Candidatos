@@ -1,7 +1,7 @@
 import React from 'react';
 import { SlideData } from '../constants';
 import { 
-  Briefcase, Mail, CheckCircle2, Star, AlertCircle, TrendingUp, UserCheck, X
+  Briefcase, Mail, CheckCircle2, TrendingUp, UserCheck
 } from 'lucide-react';
 import { CandidateAvatar } from './Slides';
 
@@ -52,13 +52,20 @@ export const ReportView: React.FC<ReportViewProps> = ({ slides }) => {
     </footer>
   );
 
-  // Group candidates in pairs for the layout
-  const candidatePairs = [];
-  for (let i = 0; i < candidateSlides.length; i += 2) {
-    candidatePairs.push(candidateSlides.slice(i, i + 2));
+  // Group candidates: 2 per page, but last page can take 3 if needed to save space
+  const candidateGroups = [];
+  const candidates = [...candidateSlides];
+  
+  while (candidates.length > 0) {
+    // If we have 3 left, put them all on one page to save a page
+    if (candidates.length === 3) {
+      candidateGroups.push(candidates.splice(0, 3));
+    } else {
+      candidateGroups.push(candidates.splice(0, 2));
+    }
   }
 
-  const totalPages = 1 + 1 + candidatePairs.length + 1 + 1;
+  const totalPages = 1 + 1 + candidateGroups.length + 1;
   let currentPage = 1;
 
   return (
@@ -113,12 +120,27 @@ export const ReportView: React.FC<ReportViewProps> = ({ slides }) => {
                   <div className="space-y-6">
                       <h4 className="text-xs font-black text-indigo-600 uppercase tracking-widest border-b border-indigo-100 pb-2">Nómina de Perfiles</h4>
                       <div className="space-y-3">
-                          {candidateSlides.map((s, i) => (
-                              <div key={i} className="flex justify-between items-center border-b border-slate-50 pb-1">
-                                  <span className="font-bold text-slate-700 text-xs">{s.content.name}</span>
-                                  <span className="font-black text-slate-300">Pág. {Math.floor(i/2) + 3}</span>
-                              </div>
-                          ))}
+                          {candidateSlides.map((s, i) => {
+                              // Calculate page number based on groups [2, 2, 2, 2, 2, 3]
+                              let pageNum = 3;
+                              let count = 0;
+                              for (let g = 0; g < candidateGroups.length; g++) {
+                                  count += candidateGroups[g].length;
+                                  if (i < count) {
+                                      pageNum = 3 + g;
+                                      break;
+                                  }
+                              }
+                              return (
+                                  <div key={i} className="flex justify-between items-center border-b border-slate-50 pb-1">
+                                      <div className="flex items-center gap-2">
+                                          <span className="font-bold text-slate-700 text-xs">{s.content.name}</span>
+                                          <span className="text-[8px] font-black text-slate-300 uppercase">({s.content.age} años)</span>
+                                      </div>
+                                      <span className="font-black text-slate-300">Pág. {pageNum}</span>
+                                  </div>
+                              );
+                          })}
                       </div>
                   </div>
                   <div className="space-y-8">
@@ -147,19 +169,20 @@ export const ReportView: React.FC<ReportViewProps> = ({ slides }) => {
           <Footer page={++currentPage} total={totalPages} />
       </div>
 
-      {/* PAGES 3-8: CANDIDATE PAIRS */}
-      {candidatePairs.map((pair, pairIdx) => (
-          <div key={pairIdx} className="w-[210mm] h-[297mm] mx-auto p-[1.5cm] relative flex flex-col bg-white shadow-2xl mb-12 print:shadow-none print:mb-0 print:break-after-page">
-              <Header sectionTitle={`EVALUACIÓN DE PERFILES: GRUPO ${pairIdx + 1}`} />
+      {/* CANDIDATE PAGES */}
+      {candidateGroups.map((group, groupIdx) => (
+          <div key={groupIdx} className="w-[210mm] h-[297mm] mx-auto p-[1.2cm] relative flex flex-col bg-white shadow-2xl mb-12 print:shadow-none print:mb-0 print:break-after-page">
+              <Header sectionTitle={`EVALUACIÓN DE PERFILES: GRUPO ${groupIdx + 1}`} />
               
-              <div className="flex-1 grid grid-cols-2 gap-10 py-2">
-                  {pair.map((slide, idx) => {
+              <div className={`flex-1 grid ${group.length === 3 ? 'grid-cols-3 gap-4' : 'grid-cols-2 gap-10'} py-2`}>
+                  {group.map((slide, idx) => {
                       const candidate = slide.content;
+                      const isThreeCol = group.length === 3;
                       return (
-                          <div key={idx} className="flex flex-col border-r last:border-r-0 border-slate-100 pr-5 last:pr-0 last:pl-5">
+                          <div key={idx} className={`flex flex-col ${idx < group.length - 1 ? 'border-r border-slate-100' : ''} ${isThreeCol ? 'pr-3 pl-3 first:pl-0 last:pr-0' : 'pr-5 last:pr-0 last:pl-5'}`}>
                               {/* Candidate Header */}
-                              <div className="flex gap-5 mb-8">
-                                  <div className="w-28 h-36 rounded-2xl overflow-hidden border border-slate-200 shrink-0 shadow-lg relative">
+                              <div className={`flex ${isThreeCol ? 'flex-col items-center text-center' : 'gap-5'} mb-6`}>
+                                  <div className={`${isThreeCol ? 'w-24 h-32 mb-3' : 'w-28 h-36'} rounded-2xl overflow-hidden border border-slate-200 shrink-0 shadow-lg relative`}>
                                       {candidate.image ? (
                                           <img src={candidate.image} alt={candidate.name} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
                                       ) : (
@@ -168,105 +191,67 @@ export const ReportView: React.FC<ReportViewProps> = ({ slides }) => {
                                       <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 to-transparent" />
                                   </div>
                                   <div className="flex flex-col justify-center">
-                                      <h2 className="text-2xl font-black text-slate-900 leading-tight mb-2 tracking-tighter uppercase">{candidate.name}</h2>
-                                      <div className="flex items-center gap-2 mb-3">
-                                          <div className="px-2.5 py-1 bg-indigo-600 text-white text-[9px] font-black rounded-lg uppercase tracking-widest shadow-md shadow-indigo-100">
+                                      <h2 className={`${isThreeCol ? 'text-lg' : 'text-2xl'} font-black text-slate-900 leading-tight mb-1 tracking-tighter uppercase`}>{candidate.name}</h2>
+                                      <div className={`flex items-center gap-2 mb-2 ${isThreeCol ? 'justify-center' : ''}`}>
+                                          <div className="px-2 py-0.5 bg-indigo-600 text-white text-[8px] font-black rounded-lg uppercase tracking-widest shadow-md shadow-indigo-100">
                                               {candidate.age} AÑOS
                                           </div>
-                                          <div className="h-1 w-1 rounded-full bg-slate-300" />
-                                          <span className="text-[8px] font-bold text-slate-400 uppercase tracking-widest">Postulante JP</span>
                                       </div>
-                                      <p className="text-[10px] font-bold text-slate-500 leading-tight max-w-[180px]">{candidate.study}</p>
+                                      <p className="text-[9px] font-bold text-slate-500 leading-tight">{candidate.study}</p>
                                   </div>
                               </div>
 
                               {/* Experience & Skills */}
-                              <div className="space-y-6 mb-8">
+                              <div className="space-y-4 mb-6">
                                   <section>
-                                      <div className="flex items-center justify-between mb-3 border-b border-slate-100 pb-1.5">
-                                          <h3 className="text-[9px] font-black text-indigo-600 uppercase tracking-widest flex items-center gap-2">
-                                              <Briefcase size={10} /> Trayectoria Relevante
+                                      <div className="flex items-center justify-between mb-2 border-b border-slate-100 pb-1">
+                                          <h3 className="text-[8px] font-black text-indigo-600 uppercase tracking-widest flex items-center gap-1.5">
+                                              <Briefcase size={9} /> Trayectoria
                                           </h3>
-                                          <TrendingUp size={10} className="text-slate-200" />
                                       </div>
-                                      <div className="space-y-2">
-                                          {candidate.experience.map((exp: string, i: number) => (
-                                              <div key={i} className="text-[9px] font-medium text-slate-600 leading-snug flex gap-3">
+                                      <div className="space-y-1.5">
+                                          {candidate.experience.slice(0, 3).map((exp: string, i: number) => (
+                                              <div key={i} className="text-[8px] font-medium text-slate-600 leading-snug flex gap-2">
                                                   <div className="mt-1.5 h-1 w-1 rounded-full bg-indigo-400 shrink-0" />
-                                                  {exp}
+                                                  <span className="line-clamp-2">{exp}</span>
                                               </div>
                                           ))}
                                       </div>
                                   </section>
                                   
-                                  <div className="grid grid-cols-1 gap-3">
-                                      <div className="p-3 bg-indigo-50/50 rounded-2xl border border-indigo-100/50 relative overflow-hidden">
-                                          <div className="absolute top-0 right-0 p-2 opacity-10">
-                                              <Star size={24} className="text-indigo-600" />
-                                          </div>
-                                          <span className="text-[8px] font-black text-indigo-600 uppercase tracking-widest block mb-1.5 flex items-center gap-2">
-                                              <UserCheck size={9} /> Fortalezas Destacadas
+                                  <div className="grid grid-cols-1 gap-2">
+                                      <div className="p-2.5 bg-indigo-50/50 rounded-xl border border-indigo-100/50">
+                                          <span className="text-[7px] font-black text-indigo-600 uppercase tracking-widest block mb-1 flex items-center gap-1.5">
+                                              <UserCheck size={8} /> Fortalezas
                                           </span>
-                                          <p className="text-[9px] font-bold text-indigo-900 leading-relaxed">{candidate.notable}</p>
+                                          <p className="text-[8px] font-bold text-indigo-900 leading-relaxed line-clamp-3">{candidate.notable}</p>
                                       </div>
-                                      <div className="p-3 bg-rose-50/50 rounded-2xl border border-rose-100/50 relative overflow-hidden">
-                                          <div className="absolute top-0 right-0 p-2 opacity-10">
-                                              <AlertCircle size={24} className="text-rose-600" />
-                                          </div>
-                                          <span className="text-[8px] font-black text-rose-600 uppercase tracking-widest block mb-1.5 flex items-center gap-2">
-                                              <TrendingUp size={9} /> Áreas de Desarrollo
+                                      <div className="p-2.5 bg-rose-50/50 rounded-xl border border-rose-100/50">
+                                          <span className="text-[7px] font-black text-rose-600 uppercase tracking-widest block mb-1 flex items-center gap-1.5">
+                                              <TrendingUp size={8} /> Desarrollo
                                           </span>
-                                          <p className="text-[9px] font-bold text-rose-900 leading-relaxed">{candidate.toConsider}</p>
+                                          <p className="text-[8px] font-bold text-rose-900 leading-relaxed line-clamp-3">{candidate.toConsider}</p>
                                       </div>
                                   </div>
                               </div>
 
-                              {/* EVALUATOR PANEL - REDESIGNED FOR COMMERCIAL LEADERS */}
-                              <div className="mt-auto pt-6 border-t border-slate-100">
-                                  <div className="flex justify-between items-center mb-4">
-                                      <div className="flex flex-col">
-                                          <span className="text-[9px] font-black text-slate-900 uppercase tracking-widest">Evaluación Comercial</span>
-                                          <span className="text-[7px] font-bold text-slate-400 uppercase tracking-widest">Anotaciones del Líder</span>
-                                      </div>
-                                      <div className="flex gap-1.5">
-                                          {[
-                                              { label: 'AV', color: 'bg-emerald-500', text: 'Avanza' },
-                                              { label: 'DU', color: 'bg-amber-500', text: 'Duda' },
-                                              { label: 'NA', color: 'bg-rose-500', text: 'No Avanza' }
-                                          ].map(opt => (
-                                              <div key={opt.label} className="flex flex-col items-center gap-1">
-                                                  <div className="w-7 h-7 border-2 border-slate-200 rounded-lg flex items-center justify-center text-[8px] font-black text-slate-300 hover:border-slate-400 transition-colors cursor-pointer">{opt.label}</div>
-                                              </div>
+                              {/* EVALUATOR PANEL */}
+                              <div className="mt-auto pt-4 border-t border-slate-100">
+                                  <div className="flex justify-between items-center mb-3">
+                                      <span className="text-[8px] font-black text-slate-900 uppercase tracking-widest">Evaluación</span>
+                                      <div className="flex gap-1">
+                                          {['AV', 'DU', 'NA'].map(l => (
+                                              <div key={l} className="w-6 h-6 border border-slate-200 rounded-md flex items-center justify-center text-[7px] font-black text-slate-300">{l}</div>
                                           ))}
                                       </div>
                                   </div>
                                   
-                                  <div className="grid grid-cols-2 gap-4 mb-4">
-                                      <div className="flex flex-col gap-2">
-                                          <span className="text-[7px] font-black text-slate-400 uppercase tracking-widest">Potencial Comercial</span>
-                                          <div className="flex gap-1.5">
-                                              {[1,2,3,4,5].map(i => (
-                                                  <div key={i} className="w-2.5 h-2.5 rounded-full border border-slate-200" />
-                                              ))}
-                                          </div>
-                                      </div>
-                                      <div className="flex flex-col gap-2">
-                                          <span className="text-[7px] font-black text-slate-400 uppercase tracking-widest">Ajuste Cultural</span>
-                                          <div className="flex gap-1.5">
-                                              {[1,2,3,4,5].map(i => (
-                                                  <div key={i} className="w-2.5 h-2.5 rounded-full border border-slate-200" />
-                                              ))}
-                                          </div>
-                                      </div>
-                                  </div>
-
-                                  <div className="h-32 w-full bg-slate-50/50 rounded-2xl border border-slate-100 p-4 relative overflow-hidden">
-                                      <div className="space-y-4">
-                                          {[1,2,3,4,5].map(i => (
+                                  <div className="h-24 w-full bg-slate-50/50 rounded-xl border border-slate-100 p-3 relative overflow-hidden">
+                                      <div className="space-y-3">
+                                          {[1,2,3,4].map(i => (
                                               <div key={i} className="border-b border-slate-200/40 h-px w-full" />
                                           ))}
                                       </div>
-                                      <div className="absolute bottom-2 right-3 text-[6px] font-black text-slate-300 uppercase tracking-widest">Observaciones Libres</div>
                                   </div>
                               </div>
                           </div>
@@ -278,89 +263,66 @@ export const ReportView: React.FC<ReportViewProps> = ({ slides }) => {
           </div>
       ))}
 
-      {/* PAGE 9: CIERRE Y CONTACTO */}
-      <div className="w-[210mm] h-[297mm] mx-auto p-[2cm] relative flex flex-col bg-white shadow-2xl mb-12 print:shadow-none print:mb-0 print:break-after-page">
-          <Header sectionTitle="CONCLUSIÓN DEL PROCESO" />
+      {/* FINAL PAGE: CIERRE + NOTAS + VOTACIÓN */}
+      <div className="w-[210mm] h-[297mm] mx-auto p-[1.5cm] relative flex flex-col bg-white shadow-2xl print:shadow-none">
+          <Header sectionTitle="CONCLUSIÓN Y DECISIÓN FINAL" />
           
-          <div className="flex-1 flex flex-col justify-center items-center text-center max-w-xl mx-auto">
-              <div className="w-24 h-24 bg-indigo-600 rounded-3xl flex items-center justify-center text-white text-5xl mb-10 shadow-xl rotate-3">🚀</div>
-              <h2 className="text-5xl font-black text-slate-900 uppercase tracking-tighter mb-4">{closing.title}</h2>
-              <p className="text-xl text-indigo-600 font-black uppercase tracking-[0.4em] mb-16">{closing.subtitle}</p>
-              
-              <div className="bg-slate-900 p-12 rounded-[3rem] shadow-2xl relative overflow-hidden">
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/20 rounded-full -mr-16 -mt-16 blur-2xl" />
-                  <p className="text-2xl font-bold text-white leading-tight italic relative z-10">
-                      "{closing.content.description}"
-                  </p>
-              </div>
-          </div>
-
-          <div className="mt-20 border-t-2 border-slate-100 pt-10">
-              <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] mb-8 text-center">Mesa de Ayuda - Programa JP</h3>
-              <div className="flex justify-center gap-20">
-                  {closing.content.contacts.map((c: any, i: number) => (
-                      <div key={i} className="flex items-center gap-4">
-                          <div className="bg-indigo-600 p-3 rounded-2xl text-white shadow-lg">
-                              <Mail size={20} />
-                          </div>
-                          <div className="text-left">
-                              <span className="text-[9px] font-black text-indigo-600 uppercase block mb-0.5">{c.role}</span>
-                              <span className="text-sm font-black text-slate-900 tracking-tight">{c.email}</span>
-                          </div>
-                      </div>
-                  ))}
-              </div>
-          </div>
-
-          <Footer page={++currentPage} total={totalPages} />
-      </div>
-
-      {/* PAGE 10: NOTAS GENERALES Y VOTACIÓN FINAL */}
-      <div className="w-[210mm] h-[297mm] mx-auto p-[2.5cm] relative flex flex-col bg-white shadow-2xl print:shadow-none">
-          <Header sectionTitle="NOTAS GENERALES Y DECISIÓN FINAL" />
-          
-          <div className="flex-1 py-6 space-y-10">
-              <section>
-                  <div className="flex items-center gap-3 mb-6">
-                      <div className="h-8 w-8 bg-slate-900 rounded-xl flex items-center justify-center text-white">
-                          <TrendingUp size={16} />
-                      </div>
-                      <h4 className="text-sm font-black text-slate-900 uppercase tracking-widest">Observaciones Consolidadas de la Jornada</h4>
+          <div className="flex-1 space-y-8">
+              {/* Cierre Block */}
+              <div className="flex items-center gap-8 bg-slate-50 p-8 rounded-[2.5rem] border border-slate-100">
+                  <div className="w-20 h-20 bg-indigo-600 rounded-2xl flex items-center justify-center text-white text-4xl shadow-lg shrink-0">🚀</div>
+                  <div>
+                      <h2 className="text-3xl font-black text-slate-900 uppercase tracking-tighter mb-2">{closing.title}</h2>
+                      <p className="text-sm text-indigo-600 font-black uppercase tracking-widest mb-4">{closing.subtitle}</p>
+                      <p className="text-base font-bold text-slate-600 italic leading-tight">"{closing.content.description}"</p>
                   </div>
-                  <div className="h-[450px] w-full bg-slate-50/30 border-2 border-dashed border-slate-200 rounded-[2.5rem] p-12 relative overflow-hidden">
-                      <div className="space-y-8">
-                          {[1,2,3,4,5,6,7,8,9,10,11].map(i => (
+              </div>
+
+              {/* Notas Block */}
+              <section>
+                  <div className="flex items-center gap-3 mb-4">
+                      <TrendingUp size={16} className="text-slate-900" />
+                      <h4 className="text-xs font-black text-slate-900 uppercase tracking-widest">Observaciones Consolidadas</h4>
+                  </div>
+                  <div className="h-[300px] w-full bg-slate-50/30 border-2 border-dashed border-slate-200 rounded-[2rem] p-8 relative overflow-hidden">
+                      <div className="space-y-6">
+                          {[1,2,3,4,5,6,7].map(i => (
                               <div key={i} className="border-b border-slate-200/60 h-px w-full" />
                           ))}
                       </div>
-                      <div className="absolute bottom-6 right-10 text-[8px] font-black text-slate-300 uppercase tracking-[0.3em]">Espacio para síntesis grupal</div>
                   </div>
               </section>
 
-              <section className="bg-slate-900 p-12 rounded-[3rem] text-white relative overflow-hidden shadow-2xl">
-                  <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500/10 rounded-full -mr-32 -mt-32 blur-3xl" />
-                  <div className="flex items-center gap-4 mb-10">
-                      <div className="h-10 w-10 bg-indigo-600 rounded-2xl flex items-center justify-center shadow-lg shadow-indigo-500/20">
-                          <CheckCircle2 size={20} />
-                      </div>
-                      <h4 className="text-sm font-black uppercase tracking-[0.2em] text-indigo-300">Resumen de Votación Mesa Directiva</h4>
+              {/* Votación Block */}
+              <section className="bg-slate-900 p-8 rounded-[2.5rem] text-white relative overflow-hidden">
+                  <div className="flex items-center gap-3 mb-6">
+                      <CheckCircle2 size={18} className="text-indigo-400" />
+                      <h4 className="text-[10px] font-black uppercase tracking-widest text-indigo-300">Resumen de Votación</h4>
                   </div>
-                  <div className="grid grid-cols-3 gap-8">
-                      {[
-                          { label: 'Seleccionados', icon: UserCheck, color: 'text-emerald-400' },
-                          { label: 'En Espera', icon: AlertCircle, color: 'text-amber-400' },
-                          { label: 'No Seleccionados', icon: X, color: 'text-rose-400' }
-                      ].map(group => (
-                          <div key={group.label} className="p-8 bg-white/5 rounded-3xl border border-white/10 hover:bg-white/10 transition-colors">
-                              <div className="flex items-center gap-3 mb-6">
-                                  <group.icon size={14} className={group.color} />
-                                  <span className="text-[9px] font-black uppercase tracking-widest opacity-60">{group.label}</span>
-                              </div>
-                              <div className="h-12 border-b border-white/10" />
+                  <div className="grid grid-cols-3 gap-6">
+                      {['Seleccionados', 'En Espera', 'No Seleccionados'].map(label => (
+                          <div key={label} className="p-5 bg-white/5 rounded-2xl border border-white/10">
+                              <span className="text-[8px] font-black uppercase tracking-widest opacity-60 block mb-4">{label}</span>
+                              <div className="h-8 border-b border-white/10" />
                           </div>
                       ))}
                   </div>
               </section>
+
+              {/* Contacto Block */}
+              <div className="pt-4 border-t border-slate-100 flex justify-center gap-12">
+                  {closing.content.contacts.map((c: any, i: number) => (
+                      <div key={i} className="flex items-center gap-3">
+                          <div className="bg-indigo-600 p-2 rounded-xl text-white">
+                              <Mail size={14} />
+                          </div>
+                          <div className="text-left">
+                              <span className="text-[7px] font-black text-indigo-600 uppercase block">{c.role}</span>
+                              <span className="text-[10px] font-black text-slate-900">{c.email}</span>
+                          </div>
+                      </div>
+                  ))}
+              </div>
           </div>
 
           <Footer page={totalPages} total={totalPages} />

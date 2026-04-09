@@ -349,7 +349,7 @@ export const SlideLayout: React.FC<SlideLayoutProps> = ({
                           {slide.type === 'candidate' ? slide.content.name : (slide.title || (slide.type === 'cover' ? 'Portada' : slide.type))}
                         </div>
                         <div className={`text-[10px] font-bold truncate opacity-70 ${isCurrent ? 'text-indigo-100' : 'text-slate-500'}`}>
-                          {slide.subtitle || slide.type}
+                          {slide.type === 'candidate' ? `${slide.content.age} años` : (slide.subtitle || slide.type)}
                         </div>
                       </div>
                       {isCurrent && (
