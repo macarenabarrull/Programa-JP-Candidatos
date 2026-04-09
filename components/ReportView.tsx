@@ -1,7 +1,7 @@
 import React from 'react';
 import { SlideData } from '../constants';
 import { 
-  Briefcase, Mail, CheckCircle2, TrendingUp, UserCheck
+  Briefcase, Mail, TrendingUp, UserCheck
 } from 'lucide-react';
 import { CandidateAvatar } from './Slides';
 
@@ -53,7 +53,7 @@ export const ReportView: React.FC<ReportViewProps> = ({ slides }) => {
   );
 
   // Group candidates: 2 per page, but last page can take 3 if needed to save space
-  const candidateGroups = [];
+  const candidateGroups: SlideData[][] = [];
   const candidates = [...candidateSlides];
   
   while (candidates.length > 0) {
@@ -237,18 +237,14 @@ export const ReportView: React.FC<ReportViewProps> = ({ slides }) => {
 
                               {/* EVALUATOR PANEL */}
                               <div className="mt-auto pt-4 border-t border-slate-100">
-                                  <div className="flex justify-between items-center mb-3">
-                                      <span className="text-[8px] font-black text-slate-900 uppercase tracking-widest">Evaluación</span>
-                                      <div className="flex gap-1">
-                                          {['AV', 'DU', 'NA'].map(l => (
-                                              <div key={l} className="w-6 h-6 border border-slate-200 rounded-md flex items-center justify-center text-[7px] font-black text-slate-300">{l}</div>
-                                          ))}
-                                      </div>
+                                  <div className="flex items-center gap-2 mb-3">
+                                      <TrendingUp size={10} className="text-indigo-600" />
+                                      <span className="text-[8px] font-black text-slate-900 uppercase tracking-widest">Observaciones del Líder</span>
                                   </div>
                                   
-                                  <div className="h-24 w-full bg-slate-50/50 rounded-xl border border-slate-100 p-3 relative overflow-hidden">
-                                      <div className="space-y-3">
-                                          {[1,2,3,4].map(i => (
+                                  <div className="h-32 w-full bg-slate-50/50 rounded-xl border border-slate-100 p-3 relative overflow-hidden">
+                                      <div className="space-y-4">
+                                          {[1,2,3,4,5].map(i => (
                                               <div key={i} className="border-b border-slate-200/40 h-px w-full" />
                                           ))}
                                       </div>
@@ -279,33 +275,18 @@ export const ReportView: React.FC<ReportViewProps> = ({ slides }) => {
               </div>
 
               {/* Notas Block */}
-              <section>
+              <section className="flex-1">
                   <div className="flex items-center gap-3 mb-4">
                       <TrendingUp size={16} className="text-slate-900" />
-                      <h4 className="text-xs font-black text-slate-900 uppercase tracking-widest">Observaciones Consolidadas</h4>
+                      <h4 className="text-xs font-black text-slate-900 uppercase tracking-widest">Observaciones Consolidadas y Ranking de Selección</h4>
                   </div>
-                  <div className="h-[300px] w-full bg-slate-50/30 border-2 border-dashed border-slate-200 rounded-[2rem] p-8 relative overflow-hidden">
-                      <div className="space-y-6">
-                          {[1,2,3,4,5,6,7].map(i => (
+                  <div className="h-[550px] w-full bg-slate-50/30 border-2 border-dashed border-slate-200 rounded-[2rem] p-8 relative overflow-hidden">
+                      <div className="space-y-8">
+                          {[1,2,3,4,5,6,7,8,9,10,11,12].map(i => (
                               <div key={i} className="border-b border-slate-200/60 h-px w-full" />
                           ))}
                       </div>
-                  </div>
-              </section>
-
-              {/* Votación Block */}
-              <section className="bg-slate-900 p-8 rounded-[2.5rem] text-white relative overflow-hidden">
-                  <div className="flex items-center gap-3 mb-6">
-                      <CheckCircle2 size={18} className="text-indigo-400" />
-                      <h4 className="text-[10px] font-black uppercase tracking-widest text-indigo-300">Resumen de Votación</h4>
-                  </div>
-                  <div className="grid grid-cols-3 gap-6">
-                      {['Seleccionados', 'En Espera', 'No Seleccionados'].map(label => (
-                          <div key={label} className="p-5 bg-white/5 rounded-2xl border border-white/10">
-                              <span className="text-[8px] font-black uppercase tracking-widest opacity-60 block mb-4">{label}</span>
-                              <div className="h-8 border-b border-white/10" />
-                          </div>
-                      ))}
+                      <div className="absolute bottom-6 right-10 text-[8px] font-black text-slate-300 uppercase tracking-[0.3em]">Espacio para síntesis final de la mesa directiva</div>
                   </div>
               </section>
 
