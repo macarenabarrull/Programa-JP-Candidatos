@@ -196,7 +196,7 @@ export const ReportView: React.FC<ReportViewProps> = ({ slides }) => {
                                       <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 to-transparent" />
                                   </div>
                                   <div className="flex flex-col justify-center min-w-0">
-                                      <h2 className={`${isThreeCol ? 'text-base' : 'text-xl'} font-black text-slate-900 leading-tight mb-1 tracking-tighter uppercase truncate`}>{candidate.name}</h2>
+                                      <h2 className={`${isThreeCol ? 'text-base' : 'text-xl'} font-black text-slate-900 leading-tight mb-1 tracking-tighter uppercase`}>{candidate.name}</h2>
                                       <div className={`flex items-center gap-2 mb-1 ${isThreeCol ? 'justify-center' : ''}`}>
                                           <div className="px-2 py-0.5 bg-indigo-600 text-white text-[7px] font-black rounded-lg uppercase tracking-widest shadow-md shadow-indigo-100">
                                               {candidate.age} AÑOS
