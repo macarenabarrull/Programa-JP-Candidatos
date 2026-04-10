@@ -1,7 +1,7 @@
 import React from 'react';
 import { SlideData } from '../constants';
 import { 
-  Briefcase, Mail, TrendingUp, UserCheck
+  Briefcase, Mail, TrendingUp, UserCheck, GraduationCap
 } from 'lucide-react';
 import { CandidateAvatar } from './Slides';
 
@@ -195,47 +195,64 @@ export const ReportView: React.FC<ReportViewProps> = ({ slides }) => {
                                       )}
                                       <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 to-transparent" />
                                   </div>
-                                  <div className="flex flex-col justify-center">
-                                      <h2 className={`${isThreeCol ? 'text-lg' : 'text-2xl'} font-black text-slate-900 leading-tight mb-1 tracking-tighter uppercase`}>{candidate.name}</h2>
-                                      <div className={`flex items-center gap-2 mb-2 ${isThreeCol ? 'justify-center' : ''}`}>
-                                          <div className="px-2 py-0.5 bg-indigo-600 text-white text-[8px] font-black rounded-lg uppercase tracking-widest shadow-md shadow-indigo-100">
+                                  <div className="flex flex-col justify-center min-w-0">
+                                      <h2 className={`${isThreeCol ? 'text-base' : 'text-xl'} font-black text-slate-900 leading-tight mb-1 tracking-tighter uppercase truncate`}>{candidate.name}</h2>
+                                      <div className={`flex items-center gap-2 mb-1 ${isThreeCol ? 'justify-center' : ''}`}>
+                                          <div className="px-2 py-0.5 bg-indigo-600 text-white text-[7px] font-black rounded-lg uppercase tracking-widest shadow-md shadow-indigo-100">
                                               {candidate.age} AÑOS
                                           </div>
                                       </div>
-                                      <p className="text-[9px] font-bold text-slate-500 leading-tight">{candidate.study}</p>
+                                      <p className="text-[8px] font-bold text-slate-500 leading-tight line-clamp-2">{candidate.study}</p>
                                   </div>
                               </div>
 
                               {/* Experience & Skills */}
-                              <div className="space-y-4 mb-6">
+                              <div className="space-y-3 mb-4">
                                   <section>
-                                      <div className="flex items-center justify-between mb-2 border-b border-slate-100 pb-1">
-                                          <h3 className="text-[8px] font-black text-indigo-600 uppercase tracking-widest flex items-center gap-1.5">
-                                              <Briefcase size={9} /> Trayectoria
+                                      <div className="flex items-center justify-between mb-1.5 border-b border-slate-100 pb-1">
+                                          <h3 className="text-[7px] font-black text-indigo-600 uppercase tracking-widest flex items-center gap-1.5">
+                                              <Briefcase size={8} /> Trayectoria
                                           </h3>
                                       </div>
-                                      <div className="space-y-1.5">
-                                          {candidate.experience.slice(0, 3).map((exp: string, i: number) => (
-                                              <div key={i} className="text-[8px] font-medium text-slate-600 leading-snug flex gap-2">
-                                                  <div className="mt-1.5 h-1 w-1 rounded-full bg-indigo-400 shrink-0" />
-                                                  <span className="line-clamp-2">{exp}</span>
+                                      <div className="space-y-1">
+                                          {candidate.experience.map((exp: string, i: number) => (
+                                              <div key={i} className="text-[7px] font-medium text-slate-600 leading-tight flex gap-1.5">
+                                                  <div className="mt-1 h-1 w-1 rounded-full bg-indigo-400 shrink-0" />
+                                                  <span>{exp}</span>
                                               </div>
                                           ))}
                                       </div>
                                   </section>
+
+                                  {candidate.courses && candidate.courses.length > 0 && (
+                                      <section>
+                                          <div className="flex items-center justify-between mb-1.5 border-b border-slate-100 pb-1">
+                                              <h3 className="text-[7px] font-black text-indigo-600 uppercase tracking-widest flex items-center gap-1.5">
+                                                  <GraduationCap size={8} /> Formación
+                                              </h3>
+                                          </div>
+                                          <div className="flex flex-wrap gap-1">
+                                              {candidate.courses.map((course: string, i: number) => (
+                                                  <span key={i} className="px-1.5 py-0.5 bg-slate-50 text-slate-500 text-[6px] font-bold rounded border border-slate-100">
+                                                      {course}
+                                                  </span>
+                                              ))}
+                                          </div>
+                                      </section>
+                                  )}
                                   
-                                  <div className="grid grid-cols-1 gap-2">
-                                      <div className="p-2.5 bg-indigo-50/50 rounded-xl border border-indigo-100/50">
-                                          <span className="text-[7px] font-black text-indigo-600 uppercase tracking-widest block mb-1 flex items-center gap-1.5">
-                                              <UserCheck size={8} /> Fortalezas
+                                  <div className="grid grid-cols-1 gap-1.5">
+                                      <div className="p-2 bg-indigo-50/50 rounded-xl border border-indigo-100/50">
+                                          <span className="text-[6px] font-black text-indigo-600 uppercase tracking-widest block mb-0.5 flex items-center gap-1.5">
+                                              <UserCheck size={7} /> Fortalezas
                                           </span>
-                                          <p className="text-[8px] font-bold text-indigo-900 leading-relaxed line-clamp-3">{candidate.notable}</p>
+                                          <p className="text-[7px] font-bold text-indigo-900 leading-relaxed">{candidate.notable}</p>
                                       </div>
-                                      <div className="p-2.5 bg-rose-50/50 rounded-xl border border-rose-100/50">
-                                          <span className="text-[7px] font-black text-rose-600 uppercase tracking-widest block mb-1 flex items-center gap-1.5">
-                                              <TrendingUp size={8} /> Desarrollo
+                                      <div className="p-2 bg-rose-50/50 rounded-xl border border-rose-100/50">
+                                          <span className="text-[6px] font-black text-rose-600 uppercase tracking-widest block mb-0.5 flex items-center gap-1.5">
+                                              <TrendingUp size={7} /> Desarrollo
                                           </span>
-                                          <p className="text-[8px] font-bold text-rose-900 leading-relaxed line-clamp-3">{candidate.toConsider}</p>
+                                          <p className="text-[7px] font-bold text-rose-900 leading-relaxed">{candidate.toConsider}</p>
                                       </div>
                                   </div>
                               </div>
@@ -247,9 +264,9 @@ export const ReportView: React.FC<ReportViewProps> = ({ slides }) => {
                                       <span className="text-[8px] font-black text-slate-900 uppercase tracking-widest">Observaciones del Líder</span>
                                   </div>
                                   
-                                  <div className="h-32 w-full bg-slate-50/50 rounded-xl border border-slate-100 p-3 relative overflow-hidden">
-                                      <div className="space-y-4">
-                                          {[1,2,3,4,5].map(i => (
+                                  <div className="h-28 w-full bg-slate-50/50 rounded-xl border border-slate-100 p-2.5 relative overflow-hidden">
+                                      <div className="space-y-3.5">
+                                          {[1,2,3,4].map(i => (
                                               <div key={i} className="border-b border-slate-200/40 h-px w-full" />
                                           ))}
                                       </div>
