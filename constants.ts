@@ -44,7 +44,7 @@ export const SLIDES: SlideData[] = [
         'Sector TACI en ACA (2023-2025).',
         'Operaciones en Sahilices.'
       ],
-      notable: 'Conocimiento del ecosistema agro y experiencia en comercialización digital. Buen manejo de personal a cargo.',
+      notable: 'Conocimiento del ecosistema agro y experiencia en comercialización.',
       toConsider: 'Manejo de ansiedades y proyeccion dentro de la compañía, acompañamiento en su desarrollo profesional.',
       image: ''
     } as CandidateData
@@ -78,7 +78,7 @@ export const SLIDES: SlideData[] = [
         'Pasante de Finanzas Operativas en Maincal S.A. (2025).',
         'Facturación y cobranzas.'
       ],
-      notable: 'Sólida formación académica. Finalista del CFA Research Challenge. Perfil proactivo con interés en mercados.',
+      notable: 'Formación académica orientada a finanzas. Finalista del CFA Research Challenge. Perfil con interés en el análisis de mercados.',
       toConsider: 'Desarrollo de habilidades específicas para la negociación de granos.',
       image: ''
     } as CandidateData
@@ -129,8 +129,8 @@ export const SLIDES: SlideData[] = [
         'Analista de Mercados en F.M Metalúrgica.',
         'Gestión de vínculos comerciales en Metalúrgica J.S.'
       ],
-      notable: 'Experiencia comercial en apertura de mercados internacionales. Perfil con alta autonomía y visión global.',
-      toConsider: 'Acompañamiento en su plan profesional y motivacion.',
+      notable: 'Experiencia comercial en apertura de mercados internacionales. Perfil con autonomía y visión global.',
+      toConsider: 'Regular su desarrollo profesional y la ansiedad de crecimiento.',
       image: ''
     } as CandidateData
   },
@@ -146,7 +146,7 @@ export const SLIDES: SlideData[] = [
         'Pasantía en Comercio Exterior y Compras en Marcopolo SA (2025-Actualidad).',
         'Analista Técnico y Logístico en Selecsa SRL (2020-2024).'
       ],
-      notable: 'Perfil con gran interes en la comercializacion de granos, considera su carrera como un abanico de posibilidades.',
+      notable: 'Perfil con interés en la comercialización de granos, considera su carrera como un abanico de posibilidades.',
       toConsider: 'No posee experiencia directa en la comercialización.',
       image: ''
     } as CandidateData
@@ -162,8 +162,8 @@ export const SLIDES: SlideData[] = [
       experience: [
         'Auxiliar contable en Estudio contable A.M. Rodeni y Asoc. (2024-Actualidad). Gran parte de los clientes del estudio pertenecen al sector agropecuario'
       ],
-      notable: 'Perfil metódico con alta capacidad de organización y compromiso. Menciona que el hecho de trabajar actualmente con clientes del agro dentro del estudio reforzó ese interés.',
-      toConsider: 'Desarrollar su perfil comercial.',
+      notable: 'Perfil metódico con organización y compromiso. Menciona que el hecho de trabajar actualmente con clientes del agro dentro del estudio reforzó ese interés.',
+      toConsider: 'Desarrollar su perfil técnico comercial de granos.',
       image: ''
     } as CandidateData
   },
@@ -179,8 +179,8 @@ export const SLIDES: SlideData[] = [
         'Pasantía Profesional en Administración y Finanzas en Maincal S.A. (2025).',
         'Rotación por Tesorería, Pagos y Cobranzas.'
       ],
-      notable: 'Perfil comprometido con las tareas que asume. Suele intentar resolver los desafíos de manera autónoma, recurriendo a distintos recursos y alternativas para encontrar soluciones.',
-      toConsider: 'Escasa exposición comercial directa; validar habilidades de persuasión.',
+      notable: 'Perfil orientado a la resolución de tareas. Busca resolver desafíos de manera autónoma utilizando diversos recursos.',
+      toConsider: 'Desarrollar exposición comercial directa y habilidades de persuasión.',
       image: ''
     } as CandidateData
   },
@@ -197,8 +197,8 @@ export const SLIDES: SlideData[] = [
         'Panelista y Productor en Vive TV (2024).',
         'Auxiliar administrativo contable.'
       ],
-      notable: 'Perfil netamente comercial con experiencia en ventas y comunicación.',
-      toConsider: 'Validar ajuste a la cultura fyo.',
+      notable: 'Perfil comercial con experiencia en ventas y comunicación.',
+      toConsider: 'Desarrollar conocimiento específico del mercado de granos y sus tecnicismos.',
       image: ''
     } as CandidateData
   },
@@ -232,7 +232,7 @@ export const SLIDES: SlideData[] = [
         'Pasante de Energía & Utilidades en BASF SA Argentina (2024-2025).',
         'Asistente de Operaciones en Metalúrgica Baccin (2020-2021).'
       ],
-      notable: 'Perfil con formación en Ingeniería que permite una visión global de los procesos y un enfoque altamente analítico. Posee gran capacidad de comunicación y facilidad para integrar datos complejos.',
+      notable: 'Perfil con formación en Ingeniería que permite una visión global de los procesos y un enfoque analítico. Posee facilidad para integrar datos complejos.',
       toConsider: 'Busca reorientar su carrera hacia el área comercial y un nuevo rubro, alejándose del enfoque estrictamente técnico de procesos para incursionar en el desarrollo de negocios.',
       image: ''
     } as CandidateData
@@ -249,8 +249,8 @@ export const SLIDES: SlideData[] = [
         'Administración comercial en Turbom Argentina I.C.S.A. (2023-Actualidad).',
         'Gestión integral en empresa familiar de equipos de riego.'
       ],
-      notable: 'Perfil proactivo y emprendedor con marcada actitud comercial. Gran facilidad para generar relaciones interpersonales y pasión por el dinamismo del agro.',
-      toConsider: 'Busca especializarse exclusivamente en el mercado de granos en una organización de mayor envergadura.',
+      notable: 'Perfil proactivo con actitud comercial. Posee facilidad para generar relaciones interpersonales e interés por el dinamismo del agro.',
+      toConsider: 'Busca especializarse en el mercado de granos en una organización de mayor envergadura.',
       image: ''
     } as CandidateData
   },

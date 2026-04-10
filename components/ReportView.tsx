@@ -147,15 +147,20 @@ export const ReportView: React.FC<ReportViewProps> = ({ slides }) => {
                       <div className="bg-slate-50 p-8 rounded-3xl border border-slate-100">
                           <h4 className="text-xs font-black text-slate-900 uppercase tracking-widest mb-4">Objetivo del Dossier</h4>
                           <p className="text-sm font-medium text-slate-600 leading-relaxed">
-                              Este documento ha sido diseñado para facilitar la toma de decisiones durante el Assessment Center. 
-                              Contiene una síntesis curricular de cada candidato, destacando sus fortalezas y áreas de oportunidad, 
-                              con espacios dedicados para anotaciones en tiempo real por parte de los evaluadores.
+                              Este dossier ejecutivo ha sido estructurado para el Programa de Formación Comercial en Granos 25-26. 
+                              Proporciona una visión objetiva de cada perfil, permitiendo a los líderes comerciales evaluar el potencial 
+                              de cada candidato para integrarse a la mesa de negocios de fyo.
                           </p>
                       </div>
                       <div className="p-8 border-2 border-dashed border-indigo-100 rounded-3xl">
                           <h4 className="text-xs font-black text-indigo-600 uppercase tracking-widest mb-4">Criterios de Evaluación</h4>
                           <ul className="space-y-3">
-                              {['Potencial Analítico', 'Perfil Comercial', 'Ajuste Cultural', 'Autonomía'].map((c, i) => (
+                              {[
+                                'Perfil Comercial y Negociación', 
+                                'Capacidad Analítica y de Procesos', 
+                                'Ajuste Cultural fyo', 
+                                'Potencial de Aprendizaje y Desarrollo'
+                              ].map((c, i) => (
                                   <li key={i} className="flex items-center gap-3 text-xs font-bold text-slate-700">
                                       <div className="w-2 h-2 bg-indigo-500 rounded-full" />
                                       {c}
