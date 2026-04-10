@@ -125,7 +125,7 @@ export const SLIDES: SlideData[] = [
       study: 'Licenciatura en Relaciones Internacionales (UNR) - 30/36 materias.',
       courses: ['Inglés (B1).'],
       experience: [
-        'Gerente Comercial en MetalGrill (2025-2026).',
+        'Auxiliar Comercial en MetalGrill (2025-2026).',
         'Analista de Mercados en F.M Metalúrgica.',
         'Gestión de vínculos comerciales en Metalúrgica J.S.'
       ],
